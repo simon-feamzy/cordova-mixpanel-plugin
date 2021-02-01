@@ -2,10 +2,7 @@
 ## Cordova Plugin that wraps Mixpanel sdk for android and ios
 
 - [Android SDK version 5.6.5](https://github.com/mixpanel/mixpanel-android/tree/v5.6.5)
-- [iOS SDK version 3.4.9](https://github.com/mixpanel/mixpanel-iphone/tree/v3.4.9)
-
-*NOTE: this version currenty doesn't support apple watch due to some deprecation of watchkit in xcode 11. use the latest 4.6.x release if you need apple watch support*
-
+- [iOS SDK version 3.6.4](https://github.com/mixpanel/mixpanel-iphone/tree/v3.6.4)
 
 #### Install
 
