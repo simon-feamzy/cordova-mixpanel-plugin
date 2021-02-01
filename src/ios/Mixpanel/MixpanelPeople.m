@@ -12,6 +12,10 @@
 #import "MixpanelPrivate.h"
 #import "MPLogger.h"
 
+#if defined(MIXPANEL_WATCHOS)
+#import "MixpanelWatchProperties.h"
+#endif
+
 @implementation MixpanelPeople
 
 - (instancetype)initWithMixpanel:(Mixpanel *)mixpanel
@@ -32,7 +36,9 @@
 
 - (NSString *)deviceSystemVersion
 {
-#if defined(MIXPANEL_MACOS)
+#if defined(MIXPANEL_WATCHOS)
+    return [MixpanelWatchProperties systemVersion];
+#elif defined(MIXPANEL_MACOS)
     return [NSProcessInfo processInfo].operatingSystemVersionString;
 #else
     return [UIDevice currentDevice].systemVersion;
@@ -58,12 +64,6 @@
         p[@"$ios_device_model"] = deviceModel;
     }
 
-#if !defined(MIXPANEL_MACOS)
-    NSString *ifa = [strongMixpanel IFA];
-    if (ifa) {
-        p[@"$ios_ifa"] = ifa;
-    }
-#endif
     return [p copy];
 }
 
@@ -124,9 +124,11 @@
                 }
             } else {
                 MPLogInfo(@"%@ queueing unidentified people record: %@", strongMixpanel, r);
-                [self.unidentifiedQueue addObject:r];
-                if (self.unidentifiedQueue.count > 500) {
-                    [self.unidentifiedQueue removeObjectAtIndex:0];
+                @synchronized (strongMixpanel) {
+                    [self.unidentifiedQueue addObject:r];
+                    if (self.unidentifiedQueue.count > 500) {
+                        [self.unidentifiedQueue removeObjectAtIndex:0];
+                    }
                 }
             }
 
