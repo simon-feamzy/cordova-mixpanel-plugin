@@ -1,0 +1,31 @@
+apply plugin: 'distribution'
+version '4.7.0-5'
+
+plugins.withType(DistributionPlugin) {
+    distTar {
+        compression = Compression.GZIP
+        extension = 'tgz'
+    }
+}
+distributions {
+    main {
+        distributionBaseName = 'cordova-plugin-mixpanel'
+        contents {
+            from 'plugin.xml'
+            from 'CHANGELOG.md'
+            from 'README.md'
+            from 'package.json'
+            from 'LICENSE'
+            into('src') {
+                from 'src'
+            }
+            into('typings') {
+                from 'typings'
+            }
+            into('www') {
+                from 'www'
+            }
+        }
+    }
+}
+
