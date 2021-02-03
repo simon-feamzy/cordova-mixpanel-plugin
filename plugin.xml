@@ -2,7 +2,7 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android"
         id="cordova-plugin-mixpanel"
-        version="4.7.0-5">
+        version="4.7.0-6">
 
     <name>Mixpanel</name>
 
@@ -59,6 +59,12 @@
             <meta-data
                     android:name="com.mixpanel.android.MPConfig.EnableDebugLogging"
                     android:value="true"/>
+            <meta-data android:name="com.mixpanel.android.MPConfig.EventsEndpoint"
+                       android:value="https://api-eu.mixpanel.com/track?ip=1" />
+            <meta-data android:name="com.mixpanel.android.MPConfig.PeopleEndpoint"
+                       android:value="https://api-eu.mixpanel.com/engage?ip=1" />
+            <meta-data android:name="com.mixpanel.android.MPConfig.GroupsEndpoint"
+                       android:value="https://api-eu.mixpanel.com/groups" />
         </config-file>
     </platform>
 
